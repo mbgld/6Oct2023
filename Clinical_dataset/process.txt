@@ -1,0 +1,22 @@
+https://docs.gdc.cancer.gov/Data_Dictionary/viewer/#?view=table-definition-view&id=exposure  에서 clinical data column의 내용을 찾는다.
+
+
+clinical -> tsv로만 열고서, clinical_modi_1으로 이름변경
+Excel에서의 작업
+STAGE를 만들고 숫자로 단순화 시켜 변경한다.
+	stage IV -> 4
+	stage IIIA, IIIB -> 3
+	stage II, IIA, IIB -> 2
+	stage I, IA, IB -> 1
+
+찾기 바꾸기 기능을 이용하여 특수 문자 '-- 를 빈칸으로 만든다.
+
+exosure -> tsv로만 열고서, exposure_modi-1으로 이름 변경
+Excel에서 작업
+특수 문자 '-- 를 빈칸으로 만든다.
+
+이후 판다스에서 작업한다
+clincial의 경우 행의 중복을 check 한다.  가장 마지막 열인 'treatment_type' 을 drop 한다.
+duplicated() 방법을 이용해 중복되는 행을 확인하고
+drop_dupliated() 방법을 이용해 중복행을 병합하여 하나의 행으로 통일한다.
+중요 data인 AGE, GENDER, STAGE, PY가 비어 있으면 그 행은 전체 삭제한다.
